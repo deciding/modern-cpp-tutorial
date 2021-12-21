@@ -126,6 +126,7 @@ initialize it in the expression.
 
 In the previous section, we mentioned that the `auto` keyword cannot be used
 in the parameter list because it would conflict with the functionality of the template.
+(after c++20, `auto` in parameter list is allowed).
 But Lambda expressions are not ordinary functions, so Lambda expressions are not templated.
 This has caused us some trouble: the parameter table cannot be generalized,
 and the parameter table type must be clarified.
@@ -339,7 +340,8 @@ void reference(std::string&& str) {
 int main()
 {
     std::string  lv1 = "string,";       // lv1 is a lvalue
-    // std::string&& r1 = s1;           // illegal, rvalue can't ref to lvalue
+    // std::string&& rv1 = lv1;         // illegal, rvalue can't ref to lvalue
+    // std::string lv2 = std::move(lv1);// legal, but will move the lv1 to lv2
     std::string&& rv1 = std::move(lv1); // legal, std::move can convert lvalue to rvalue
     std::cout << rv1 << std::endl;      // string,
 
