@@ -342,7 +342,7 @@ int main()
     std::string  lv1 = "string,";       // lv1 is a lvalue
     // std::string&& rv1 = lv1;         // illegal, rvalue can't ref to lvalue
     // std::string lv2 = std::move(lv1);// legal, but will move the lv1 to lv2
-    std::string&& rv1 = std::move(lv1); // legal, std::move can convert lvalue to rvalue
+    std::string&& rv1 = std::move(lv1); // legal, std::move can convert lvalue to rvalue, lv1 is not moved now, can still access it.
     std::cout << rv1 << std::endl;      // string,
 
     const std::string& lv2 = lv1 + lv1; // legal, const lvalue reference can extend temp variable's lifecycle
