@@ -369,14 +369,14 @@ let's look at the following code:
 #include <iostream>
 
 int main() {
-    // int &a = std::move(1); // illegal, non-const lvalue reference cannot ref rvalue
+    // int &a = std::move(1); // illegal, non-const lvalue reference cannot ref to rvalue
     const int &b = std::move(1); // legal, const lvalue reference can
 
     std::cout << b << std::endl;
 }
 ```
 
-The first question, why not allow non-linear references to bind to non-lvalues?
+The first question, why not allow non-const references to bind to non-lvalues?
 This is because there is a logic error in this approach:
 
 ```cpp
@@ -391,6 +391,7 @@ void foo() {
 
 Since `int&` can't reference a parameter of type `double`,
 you must generate a temporary value to hold the value of `s`.
+Now, v refers to a temporary rvalue.
 Thus, when `increase()` modifies this temporary value,
 `s` itself is not modified after the call is completed.
 
