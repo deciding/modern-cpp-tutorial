@@ -452,7 +452,7 @@ int main() {
 In the code above:
 
 1. First construct two `A` objects inside `return_rvalue`, and get the output of the two constructors;
-2. After the function returns, it will generate a xvalue, which is referenced by the moving structure of `A` (`A(A&&)`), thus extending the life cycle, and taking the pointer in the rvalue and saving it to `obj`. In the middle, the pointer to the xvalue is set to `nullptr`, which prevents the memory area from being destroyed.
+2. After the function returns, it will generate a xvalue, which is referenced by the moving constructor of `A` (`A(A&&)`), thus extending the life cycle, and taking the pointer in the rvalue and saving it to `obj`. In the middle, the pointer to the xvalue is set to `nullptr`, which prevents the memory area from being destroyed by the destructor.
 
 This avoids meaningless copy constructs and enhances performance.
 Let's take a look at an example involving a standard library:
