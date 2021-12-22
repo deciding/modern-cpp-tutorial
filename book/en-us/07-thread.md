@@ -544,6 +544,14 @@ Terms:
 - happens-before
   - sequenced-before
   - inter-thread-happens-before
+- visible side effects: the writes visible to reads in other threads
+  - both conditions should be met with: 1. happens-before 2. no other side effects in between changed the memory.
+
+4 models:
+- Relaxed ordering: `shared_ptr` which has a reference counter. The order is not important
+- Release-Acquire ordering: operations in the critical section is visible to other threads which acquires it. `std::mutex`
+- Release-Consume ordering: producer-consumer model. only the operator or functions with dependencies on the `load` has all memory modifications visible.
+- Sequentially-consistent ordering: In addition to Release-Acquire, establish a single total modification order of all atomic operations that are so tagged.
 
 
 ## Conclusion
