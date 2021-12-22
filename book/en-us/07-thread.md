@@ -189,10 +189,11 @@ int main() {
     auto consumer = [&]() {
         while (true) {
             std::unique_lock<std::mutex> lock(mtx);
-            while (!notified) {  // avoid spurious wakeup
-                cv.wait(lock);
+            while (!notified) {  // avoid spurious wakeup, other consumer already consumed and set notified to false
+                cv.wait(lock); // wait will release the lock and reacquire when notify_xx() called. Spurious wakeup may happen
             }
-
+            // the above 3 lines can be replaced to cv.wait(lock, []{return notified;});
+            
             // temporal unlock to allow producer produces more rather than
             // let consumer hold the lock until its consumed.
             lock.unlock();
