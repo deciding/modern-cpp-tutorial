@@ -518,6 +518,9 @@ To achieve the ultimate performance and achieve consistency of various strength 
    This example is essentially the same as the first loose model example. Just change the memory order of the atomic operation to `memory_order_seq_cst`. Interested readers can write their own programs to measure the performance difference caused by these two different memory sequences.
 
 ### From Cpp reference
+
+https://en.cppreference.com/w/cpp/atomic/memory_order
+
 - `memory_order_relaxed`
 - `memory_order_consume`: data dependent barrier
 - `memory_order_acquire`: forward barrier
@@ -551,7 +554,7 @@ Terms:
 - Relaxed ordering: `shared_ptr` which has a reference counter. The order is not important
 - Release-Acquire ordering: operations in the critical section is visible to other threads which acquires it. `std::mutex`
 - Release-Consume ordering: producer-consumer model. only the operator or functions with dependencies on the `load` has all memory modifications visible.
-- Sequentially-consistent ordering: In addition to Release-Acquire, establish a single total modification order of all atomic operations that are so tagged.
+- Sequentially-consistent ordering: In addition to Release-Acquire, establish a single total modification order of all atomic operations that are so tagged. Sequential ordering may be necessary for multiple producer-multiple consumer situations where all consumers must observe the actions of all producers occurring in the same order.
 
 
 ## Conclusion
