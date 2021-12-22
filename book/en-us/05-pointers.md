@@ -15,14 +15,14 @@ The basic idea is to count the number of dynamically allocated objects. Whenever
 Each time a reference is deleted, the reference count is decremented by one. When the reference count of an object is reduced to zero, the pointed heap memory is automatically deleted.
 
 In traditional C++, "remembering" to manually release resources is not always a best practice. Because we are likely to forget to release resources and lead to leakage.
-So the usual practice is that for an object, we apply for space when constructed, and free space when the destructed (called when leaving the scope).
+So the usual practice is that for an object, we apply for space when constructed, and free space when destructed (called when leaving the scope).
 That is, we often say that the RAII resource acquisition is the initialization technology.
 
 There are exceptions to everything, we always need to allocate objects on free storage. In traditional C++ we have to use `new` and `delete` to "remember" to release resources. C++11 introduces the concept of smart pointers, using the idea of ​​reference counting so that programmers no longer need to care about manually releasing memory.
 These smart pointers include `std::shared_ptr`/`std::unique_ptr`/`std::weak_ptr`, which need to include the header file `<memory>`.
 
 > Note: The reference count is not garbage collection. The reference count can recover the objects that are no longer used as soon as possible, and will not cause long waits during the recycling process.
-> More clearly and indicate the life cycle of resources.
+> It indicates the life cycle of resources more clearly.
 
 ## 5.2 `std::shared_ptr`
 
