@@ -277,7 +277,7 @@ Another common requirement is to merge two tuples, which can be done with `std::
 auto new_tuple = std::tuple_cat(get_student(1), std::move(t));
 ```
 
-You can immediately see how quickly you can traverse a tuple? But we just introduced how to index a `tuple` by a very number at runtime, then the traversal becomes simpler.
+How can you traverse a tuple. Since we just introduced how to index a `tuple` by a variable number at runtime, then the traversal becomes simpler.
 First, we need to know the length of a tuple, which can:
 
 ```cpp
