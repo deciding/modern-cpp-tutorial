@@ -517,6 +517,35 @@ To achieve the ultimate performance and achieve consistency of various strength 
 
    This example is essentially the same as the first loose model example. Just change the memory order of the atomic operation to `memory_order_seq_cst`. Interested readers can write their own programs to measure the performance difference caused by these two different memory sequences.
 
+### From Cpp reference
+- `memory_order_relaxed`
+- `memory_order_consume`: data dependent barrier
+- `memory_order_acquire`: forward barrier
+- `memory_order_release`: backward barrier
+- `memory_order_acq_rel`: both barriers
+- `memory_order_seq_cst`: a single total order exists in which all threads observe all modifications in the same order
+
+Terms:
+- Single-thread:
+  - Sequenced-before --> happens-before
+  - Carries dependency into --> Dependency-ordered before --> Inter-thread happens-before --> happens before
+- Inter-thread:
+  - *happens-before* guarantees the modification orders of the atomic var in the total order: RR WW RW WR
+  - Release sequence: the longest continuous subsequence of the modification order after release operation A
+  - Dependency-ordered before
+    - release operation + consume operation on other threads
+    - dependency-ordered before + carries dependency in another thread
+  - Inter-thread happens-before --> happens-before
+    - synchronize
+    - dependency-ordered before
+    - synchronize + sequenced-before in another thread
+    - sequenced-before + inter-thread-happens-before
+    - inter-thread-happens-before + inter-thread-happens-before
+- happens-before
+  - sequenced-before
+  - inter-thread-happens-before
+
+
 ## Conclusion
 
 The C++11 language layer provides support for concurrent programming. This section briefly introduces `std::thread`/`std::mutex`/`std::future`, an important tool that can't be avoided in concurrent programming.
