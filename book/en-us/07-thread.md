@@ -141,7 +141,7 @@ int main() {
     std::packaged_task<int()> task([](){return 7;});
     // get the future of task
     std::future<int> result = task.get_future();    // run task in a thread
-    std::thread(std::move(task)).detach();
+    std::thread(std::move(task)).detach(); // since not using join(), detach() must be called before returning.
     std::cout << "waiting...";
     result.wait(); // block until future has arrived
     // output result
