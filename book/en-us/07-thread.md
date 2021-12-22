@@ -330,11 +330,11 @@ int main() {
 Multiple threads executing in parallel, discussed at some macro level, can be roughly considered a distributed system.
 In a distributed system, any communication or even local operation takes a certain amount of time, and even unreliable communication occurs.
 
-If we force the operation of a variable `v` between multiple threads to be atomic, that is, any thread after the operation of `v`
-Other threads can **synchronize** to perceive changes in `v`, for the variable `v`, which appears as a sequential execution of the program, it does not have any efficiency gains due to the introduction of multithreading. Is there any way to accelerate this properly? The answer is to weaken the synchronization conditions between processes in atomic operations.
+If we force the operation of a variable `v` between multiple threads to be atomic, that is, in any thread after the operation of `v`, 
+other threads can **synchronize** to perceive changes in `v`, thus for the variable `v`, the operations appear as a sequential execution of the program. In this case, it does not have any efficiency gains using multithreading. Is there any way to accelerate this properly? The answer is to weaken the synchronization conditions between processes in atomic operations.
 
 In principle, each thread can correspond to a cluster node, and communication between threads is almost equivalent to communication between cluster nodes.
-Weakening the synchronization conditions between processes, usually we will consider four different consistency models:
+To weaken the synchronization conditions between processes, usually we will consider four different consistency models:
 
 1. Linear consistency: Also known as strong consistency or atomic consistency. It requires that any read operation can read the most recent write of a certain data, and the order of operation of all threads is consistent with the order under the global clock.
 
@@ -349,7 +349,7 @@ Weakening the synchronization conditions between processes, usually we will cons
 
    In this case, thread `T1`, `T2` is twice atomic to `x`, and `x.store(1)` is strictly before `x.store(2)`. `x.store(2)` strictly occurs before `x.load()`. It is worth mentioning that linear consistency requirements for global clocks are difficult to achieve, which is why people continue to study other consistent algorithms under this weaker consistency.
 
-2. Sequential consistency: It is also required that any read operation can read the last data written by the data, but it is not required to be consistent with the order of the global clock.
+2. Sequential consistency: It is also required that any read operation can read the last data written by the data, but it is not required to be consistent with the order of the global clock. The order within each thread is reserved(?).
 
    ```
            x.store(1)  x.store(3)   x.load()
