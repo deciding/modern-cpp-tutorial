@@ -92,7 +92,7 @@ void foo(int *p, int len) {
 
 std::array<int, 4> arr = {1,2,3,4};
 
-// C-stype parameter passing
+// C-style parameter passing
 // foo(arr, arr.size()); // illegal, cannot convert implicitly
 foo(&arr[0], arr.size());
 foo(arr.data(), arr.size());
